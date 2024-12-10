@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Navbar = () => {
+const Navbar = ({ initialCategories = ["All", "Electronics", "Fashion", "Home & Kitchen", "Sports"] }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [categories, setCategories] = useState(initialCategories);
 
-  const categories = [
-    "All",
-    "Electronics",
-    "Fashion",
-    "Home & Kitchen",
-    "Sports",
-  ];
+  // Fetch categories from an API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const CAT_API_URL = 'http://localhost:8080/api/categories'; 
+        const response = await fetch(CAT_API_URL);
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+        const data = await response.json();
+        setCategories(["All", ...data]); // Include "All" as the first category
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   return (
-    <header className="bg-gray-700 text-white shadow-md fixed left-0 top-0 z-50 w-full">
+    <header className="bg-gray-700 text-white shadow-md fixed left-0 top-0 z-50 w-full pr-8">
       <nav className="container mx-4 py-2 sm:py-3 md:py-4 lg:py-5 justify-between w-full flex items-center">
         {/* Logo */}
         <div className="text-xl font-bold flex items-center gap-2 mr-8 bg-transparent">
@@ -28,9 +40,10 @@ const Navbar = () => {
             ShopNova
           </a>
         </div>
+
+        {/* Category Dropdown and Search */}
         <div className="hidden md:flex flex-1 items-center gap-1 relative">
-          {/* Category Dropdown */}
-          <div className="relative ">
+          <div className="relative">
             <button
               className="bg-gray-700 px-4 py-2 rounded-l-lg focus:outline-none hover:bg-gray-600 flex items-center gap-1"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -58,7 +71,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Search Input */}
           <input
             type="search"
             name="search"
@@ -67,7 +79,7 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Desktop Navigation Links */}
+        {/* Navigation Links */}
         <div className="hidden md:flex gap-6 items-center">
           <a href="#" className="font-semibold hover:text-gray-300 text-xl">
             Features
@@ -98,7 +110,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="bg-gray-700 md:hidden">
           {/* Mobile Search and Dropdown */}
-          <div className="px-4 py-3 flex items-center gap-2 ">
+          <div className="px-4 py-3 flex items-center gap-2">
             <div className="relative flex-1">
               <button
                 className="bg-gray-800 px-4 py-2 rounded-l-lg text-left w-full hover:bg-gray-600 focus:outline-none"
