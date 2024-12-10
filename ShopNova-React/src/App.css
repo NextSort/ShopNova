@@ -1,5 +1,5 @@
 
-/* Navbar Styles */
+
 
 .light-theme{
   --root_background: white,  
@@ -43,3 +43,5 @@
     --search_result-bg: rgb(49, 49, 49);
     --hr_line_card: rgb(255, 255, 255)
 }
+
+

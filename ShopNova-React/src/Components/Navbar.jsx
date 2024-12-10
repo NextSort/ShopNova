@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const Navbar = ({ initialCategories = ["All", "Electronics", "Fashion", "Home & Kitchen", "Sports"] }) => {
+const Navbar = ({
+  initialCategories = ["All", "Electronics", "Fashion", "Home & Kitchen", "Sports"],
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -10,7 +13,7 @@ const Navbar = ({ initialCategories = ["All", "Electronics", "Fashion", "Home & 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const CAT_API_URL = 'http://localhost:8080/api/categories'; 
+        const CAT_API_URL = "http://localhost:8080/api/categories";
         const response = await fetch(CAT_API_URL);
         if (!response.ok) {
           throw new Error("Failed to fetch categories");
@@ -34,11 +37,10 @@ const Navbar = ({ initialCategories = ["All", "Electronics", "Fashion", "Home & 
             src="src/logo.png"
             alt="Logo"
             className="h-10 w-10 object-contain"
-            href="#"
           />
-          <a href="#" className="hover:text-gray-300 text-3xl">
+          <Link to="/" className="hover:text-gray-300 text-3xl">
             ShopNova
-          </a>
+          </Link>
         </div>
 
         {/* Category Dropdown and Search */}
@@ -81,18 +83,18 @@ const Navbar = ({ initialCategories = ["All", "Electronics", "Fashion", "Home & 
 
         {/* Navigation Links */}
         <div className="hidden md:flex gap-6 items-center">
-          <a href="#" className="font-semibold hover:text-gray-300 text-xl">
+          <Link to="/" className="font-semibold hover:text-gray-300 text-xl">
             Features
-          </a>
-          <a href="#" className="font-semibold hover:text-gray-300 text-xl">
+          </Link>
+          <Link to="/contact" className="font-semibold hover:text-gray-300 text-xl">
             Contact Us
-          </a>
-          <a href="#" className="font-semibold hover:text-gray-300">
+          </Link>
+          <Link to="/cart" className="font-semibold hover:text-gray-300">
             <i className="fa-solid fa-cart-shopping text-2xl"></i>
-          </a>
-          <a href="#" className="font-semibold hover:text-gray-300">
+          </Link>
+          <Link to="/profile" className="font-semibold hover:text-gray-300">
             <i className="fa-solid fa-user text-2xl"></i>
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -150,29 +152,29 @@ const Navbar = ({ initialCategories = ["All", "Electronics", "Fashion", "Home & 
           {/* Mobile Navigation Links */}
           <ul className="px-4 py-2 space-y-2">
             <li>
-              <a href="#" className="block font-semibold hover:text-gray-300">
+              <Link to="/" className="block font-semibold hover:text-gray-300">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="block font-semibold hover:text-gray-300">
+              <Link to="/features" className="block font-semibold hover:text-gray-300">
                 Features
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="block font-semibold hover:text-gray-300">
+              <Link to="/contact" className="block font-semibold hover:text-gray-300">
                 Contact Us
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="block font-semibold hover:text-gray-300">
+              <Link to="/cart" className="block font-semibold hover:text-gray-300">
                 Cart
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="block font-semibold hover:text-gray-300">
+              <Link to="/profile" className="block font-semibold hover:text-gray-300">
                 Profile
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

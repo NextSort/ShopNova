@@ -1,19 +1,25 @@
-import "./App.css";
 import React from "react";
-import Home from "./Pages/Home";
-import Navbar from "./Components/Navbar";
-import AddProduct from "./Components/AddProduct";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Home from "./Pages/Home";
+import Cart from "./Pages/Cart";
+import AddProduct from "./Components/AddProduct";
+import Product from "./Components/Product";
+import { AppProvider } from "./Context/context";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/add_product" element={<AddProduct />} />
-      </Routes>
-    </BrowserRouter>
+    <AppProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/add_product" element={<AddProduct />} />
+          <Route path="/product/:id" element={<Product />} />
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
   );
 }
 

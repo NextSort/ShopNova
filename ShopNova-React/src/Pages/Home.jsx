@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [isError, setIsError] = useState(false);
+  const navigate = useNavigate(); // React Router navigation function
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const PROD_API_URL = 'http://localhost:8080/api/products';
+        const PROD_API_URL = "http://localhost:8080/api/products/";
         const response = await axios.get(PROD_API_URL);
         setProducts(response.data);
         console.log(response.data);
@@ -29,12 +31,17 @@ const Home = () => {
     );
   }
 
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`); // Navigate to Product page with the product ID
+  };
+
   return (
     <div className="pt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
       {products.map((product) => (
         <div
           key={product.id}
-          className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+          className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
+          onClick={() => handleProductClick(product.id)} // Navigate on click
         >
           <div className="p-4 flex flex-col justify-between h-full">
             {/* Product Image (optional) */}
@@ -59,11 +66,6 @@ const Home = () => {
             <div className="text-lg font-bold text-gray-800 mb-4">
               ${product.price}
             </div>
-
-            {/* Add to Cart Button */}
-            <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-              Add To Cart
-            </button>
           </div>
         </div>
       ))}
