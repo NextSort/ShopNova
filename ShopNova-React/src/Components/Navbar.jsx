@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+
 const Navbar = ({
   initialCategories = ["All", "Electronics", "Fashion", "Home & Kitchen", "Sports"],
 }) => {
@@ -86,7 +87,10 @@ const Navbar = ({
           <Link to="/" className="font-semibold hover:text-gray-300 text-xl">
             Features
           </Link>
-          <Link to="/contact" className="font-semibold hover:text-gray-300 text-xl">
+          <Link to="/" className="font-semibold hover:text-gray-300 text-xl">
+            AddProduct
+          </Link>
+          <Link to="/ContactUs" className="font-semibold hover:text-gray-300 text-xl">
             Contact Us
           </Link>
           <Link to="/cart" className="font-semibold hover:text-gray-300">

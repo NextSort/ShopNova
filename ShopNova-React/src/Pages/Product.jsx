@@ -7,28 +7,46 @@ const Product = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useContext(AppContext);
+
   const [product, setProduct] = useState(null);
+  const [error, setError] = useState(false); 
+  
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/products/${id}`);
         setProduct(response.data);
-        console.log(response.data); // Check the data structure in the console
+        setError(false); // Clear any previous error
       } catch (error) {
         console.error("Error fetching product:", error);
+        setError(true);
       }
     };
 
     fetchProduct();
   }, [id]);
 
+  if (error) {
+    return (
+      <h2 className="text-center text-lg font-semibold mt-40 text-red-500">
+        Unable to load the product. Please try again later.
+      </h2>
+    );
+  }
+
   if (!product) {
     return <h2 className="text-center text-lg font-semibold mt-40">Loading...</h2>;
   }
 
-  // Ensure stock availability check is done properly
   const isAvailable = product.quantity > 0;
+
+  // Format the release date using JavaScript Date object
+  const formattedDate = new Date(product.releaseDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   const handleAddToCart = () => {
     addToCart(product);
@@ -54,7 +72,9 @@ const Product = () => {
             <span className="text-2xl font-semibold text-green-600">${product.price}</span>
           </div>
           <button
-            className={`w-full py-2 px-4 text-white font-semibold rounded-lg ${isAvailable ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-400 cursor-not-allowed"}`}
+            className={`w-full py-2 px-4 text-white font-semibold rounded-lg ${
+              isAvailable ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-400 cursor-not-allowed"
+            }`}
             disabled={!isAvailable}
             onClick={handleAddToCart}
           >
@@ -65,7 +85,7 @@ const Product = () => {
           </h6>
           <p className="mt-4 text-gray-600">
             <span className="font-semibold">Product listed on:</span>{" "}
-            <i>{new Date(product.releaseDate).toLocaleDateString()}</i>
+            <i>{product.releaseDate}</i>
           </p>
         </div>
       </div>

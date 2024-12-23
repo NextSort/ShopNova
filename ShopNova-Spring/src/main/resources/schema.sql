@@ -1,4 +1,4 @@
-
+-- Create the product table if it doesn't exist
 CREATE TABLE IF NOT EXISTS product (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
@@ -10,6 +10,11 @@ CREATE TABLE IF NOT EXISTS product (
     available BOOLEAN,
     quantity INT
 );
--- Create Tables for Products
 
-
+-- Create the product_images table to store multiple image URLs for each product
+CREATE TABLE IF NOT EXISTS product_images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT,
+    image_url VARCHAR(255),
+    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE
+);

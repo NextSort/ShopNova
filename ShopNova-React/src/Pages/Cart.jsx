@@ -14,14 +14,14 @@ const Cart = () => {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-20">
       <h1 className="text-3xl font-bold text-center mb-6">Shopping Cart</h1>
       
       {/* Grid Layout for Cart Items */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {cart.map((item) => (
           <Link
-            to={`/api/products/${item.id}`}
+            to={`/product/${item.id}`}
             key={item.id}
             className="flex flex-col justify-between items-center p-4 border border-gray-200 rounded-lg hover:shadow-lg hover:transform hover:scale-105 transition-transform duration-300"
           >
