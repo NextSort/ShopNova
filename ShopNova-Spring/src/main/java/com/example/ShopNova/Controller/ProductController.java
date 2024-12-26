@@ -3,7 +3,6 @@ package com.example.ShopNova.Controller;
 import com.example.ShopNova.Exception.ProductNotFoundException;
 import com.example.ShopNova.Service.ProductService;
 import com.example.ShopNova.model.Product;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +22,8 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(service.getAllProducts(), HttpStatus.OK);
     }
+
+    
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
