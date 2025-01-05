@@ -6,7 +6,6 @@ import com.example.ShopNova.model.Product;
 import jakarta.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,15 +22,19 @@ public class ProductService {
     }
 
 
-    public Product saveProduct(Product product, MultipartFile imageFile) {
-        return repo.save(product);
-    }
-
-
     public Product getProductById(Long id) {
         return repo.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found."));
     }
+//
+//    public void saveProduct(Product product) throws IOException {
+//        // Save image to file system
+//        String imageName = saveImage(imageFile);
+//        product.setImageName(imageName);
+//
+//        // Save product to database
+//        productRepository.save(product);
+//    }
 
 
 }

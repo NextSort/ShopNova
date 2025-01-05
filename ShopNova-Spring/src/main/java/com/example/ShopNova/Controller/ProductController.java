@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -36,17 +35,16 @@ public class ProductController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<String> saveProduct(
-            @RequestPart("product") Product product,
-            @RequestPart("imageFile") MultipartFile imageFile) {
-        try {
-            service.saveProduct(product, imageFile);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Product saved successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error saving product: " + e.getMessage());
-        }
-    }
+//
+//    @PostMapping("/{id}")
+//    public ResponseEntity<String> saveProduct(@RequestBody Product product) {
+//        try {
+//            service.saveProduct(product);
+//            return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: " + e.getMessage());
+//        }
+//    }
+
 
 }
